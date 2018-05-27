@@ -2,7 +2,9 @@
   "name": "webpack-react-playground",
   "version": "0.0.1",
   "scripts": {
-    "build": "webpack --config webpack.prod.js"
+    "build": "webpack --config webpack.prod.js",
+    "postinstall": "webpack --config webpack.prod.js",
+    "start": "node index.js"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
