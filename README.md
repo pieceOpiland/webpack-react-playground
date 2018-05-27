@@ -11,9 +11,10 @@ So far, things I've gotten working are:
 * Component Hot Loading
 * Server Side Rendering
 * Babel Integration
+* CSS integration
+* Better Production support
 
 I'd like to also get around to:
 * Add a data store via redux
-* CSS (or some preprocessor) integration
-* Better Production support
+* SCSS integration
 * Deploy on Heroku

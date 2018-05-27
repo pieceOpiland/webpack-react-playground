@@ -1,30 +1,43 @@
 const fs = require('fs');
+const path = require('path');
 
 require('babel-polyfill');
 require('babel-register');
 
-const express               = require('express');
-const webpack               = require('webpack');
-const _                     = require('lodash');
-const webpackDevMiddleware  = require('webpack-dev-middleware');
-const hotMiddleware         = require('webpack-hot-middleware');
-
+const express           = require('express');
+const _                 = require('lodash');
 const React             = require('react');
 const ReactDOMServer    = require('react-dom/server');
+const StaticRouter      = require('react-router').StaticRouter;
+const AppComponent      = require('./src/AppComponent').default;
 
-const StaticRouter  = require('react-router').StaticRouter;
-const AppComponent  = require('./src/AppComponent').default;
-const config        = require('./webpack.dev');
+const app = express();
 
-const compiler  = webpack(config);
-const app       = express();
+if(process.env.NODE_ENV !== 'production') {
+    const webpack               = require('webpack');
+    const webpackDevMiddleware  = require('webpack-dev-middleware');
+    const hotMiddleware         = require('webpack-hot-middleware');
 
-app.use(webpackDevMiddleware(compiler, {
-    publicPath: config.output.publicPath,
-    noInfo: true
-}));
+    const config    = require('./webpack.dev');
+    const compiler  = webpack(config);
 
-app.use(hotMiddleware(compiler));
+    app.use(webpackDevMiddleware(compiler, {
+        publicPath: config.output.publicPath,
+        noInfo: true
+    }));
+
+    app.use(hotMiddleware(compiler));
+}
+
+if(process.env.NODE_ENV === 'production') {
+    app.use('/dist/bundle.js', function(req, res) {
+        res.sendFile(path.resolve('./dist/bundle.js'));
+    });
+
+    app.use('/dist/main.css', function(req, res) {
+        res.sendFile(path.resolve('./dist/main.css'));
+    });
+}
 
 fs.readFile('./index.html', 'utf-8', function(err, data) {
     const template = _.template(data);
