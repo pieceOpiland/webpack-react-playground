@@ -1,5 +1,6 @@
 import './style.scss';
 import 'babel-polyfill';
+import 'bootstrap';
 
 import React from 'react';
 import ReactDOM from 'react-dom';

@@ -9,7 +9,6 @@ const _                 = require('lodash');
 const React             = require('react');
 const ReactDOMServer    = require('react-dom/server');
 const StaticRouter      = require('react-router').StaticRouter;
-const AppComponent      = require('./src/AppComponent').default;
 
 const app = express();
 
@@ -42,6 +41,18 @@ if(process.env.NODE_ENV === 'production') {
 fs.readFile('./index.html', 'utf-8', function(err, data) {
     const template = _.template(data);
     app.use(function(req, res) {
+
+        if(process.env.NODE_ENV !== 'production') {
+            const cache = require.cache;
+            const srcPath = path.resolve(__dirname, 'src');
+            for(const key in cache) {
+                if(cache.hasOwnProperty(key) && key.startsWith(srcPath)) {
+                    delete cache[key];
+                }
+            }
+        }
+
+        const AppComponent = require('./src/AppComponent').default;
         const context = {};
 
         const html = template({
@@ -63,7 +74,7 @@ fs.readFile('./index.html', 'utf-8', function(err, data) {
     });
 
     app.listen(process.env.PORT || 3000, function() {
-        console.log('Listening on port ' + (process.env.PORT ||3000) );
+        console.log('Listening on port ' + (process.env.PORT || 3000) );
     });
 });
 
