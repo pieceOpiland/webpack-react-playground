@@ -5,10 +5,16 @@ require('babel-polyfill');
 require('babel-register');
 
 const express           = require('express');
+const compression       = require('compression');
 const _                 = require('lodash');
+const createStore       = require('redux').createStore;
+const Provider          = require('react-redux').Provider;
 const React             = require('react');
 const ReactDOMServer    = require('react-dom/server');
 const StaticRouter      = require('react-router').StaticRouter;
+const router            = require('./src/routes').default;
+const reducer           = require('./src/reducers').default;
+
 
 const app = express();
 
@@ -29,6 +35,8 @@ if(process.env.NODE_ENV !== 'production') {
 }
 
 if(process.env.NODE_ENV === 'production') {
+    app.use(compression());
+
     app.use('/dist/bundle.js', function(req, res) {
         res.sendFile(path.resolve('./dist/bundle.js'));
     });
@@ -37,6 +45,8 @@ if(process.env.NODE_ENV === 'production') {
         res.sendFile(path.resolve('./dist/main.css'));
     });
 }
+
+app.use(router);
 
 fs.readFile('./index.html', 'utf-8', function(err, data) {
     const template = _.template(data);
@@ -52,15 +62,18 @@ fs.readFile('./index.html', 'utf-8', function(err, data) {
             }
         }
 
-        const AppComponent = require('./src/AppComponent').default;
+        const AppComponent = require('./src/components/AppComponent').default;
         const context = {};
 
         const html = template({
             content: ReactDOMServer.renderToString(
-                React.createElement(StaticRouter, { context, location: req.url },
-                    React.createElement(AppComponent, null, null)
+                React.createElement(Provider, {store: createStore(reducer, res.locals.state)},
+                    React.createElement(StaticRouter, { context, location: req.url },
+                        React.createElement(AppComponent, null, null)
+                    )
                 )
-            )
+            ),
+            state: res.locals.state
         });
 
         if (context.url) {

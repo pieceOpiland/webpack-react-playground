@@ -17,8 +17,4 @@ So far, things I've gotten working are:
 * Better Production support
 * Deploy on Heroku
 * SCSS integration
-
-I'd like to also get around to:
 * Add a data store via redux
-  * Add an API interface, and a method of managing them
-    on the server.

@@ -1,16 +1,29 @@
-import './style.scss';
+import '../styles/style.scss';
 import 'babel-polyfill';
 import 'bootstrap';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 
-import AppComponent from './AppComponent';
+import reducer from './reducers/index';
+
+import AppComponent from './components/AppComponent';
+
+const store = createStore(reducer, window.__PRELOADED_STATE__, applyMiddleware(thunk));
+
+document.getElementById('preloadedState').remove();
+delete window.__PRELOADED_STATE__;
+
 
 ReactDOM.hydrate(
-    <Router>
-        <AppComponent/>
-    </Router>,
+    <Provider store={store}>
+        <Router>
+            <AppComponent/>
+        </Router>
+    </Provider>,
     document.getElementById('app')
 );

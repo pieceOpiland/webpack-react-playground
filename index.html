@@ -8,6 +8,8 @@
 </head>
 <body>
 <div id="app"><%= content %></div>
+
+<script type="text/javascript" id="preloadedState">window.__PRELOADED_STATE__ = <%= JSON.stringify(state).replace(/</g, '\\u003c') %></script>
 <script type="text/javascript" src="/dist/bundle.js"></script>
 </body>
 </html>

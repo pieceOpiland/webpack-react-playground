@@ -6,6 +6,7 @@ import MenuComponent from './NavComponent';
 import HomeComponent from './HomeComponent';
 import AnotherComponent from './AnotherComponent';
 import NotFoundComponent from './NotFoundComponent';
+import CounterComponent from "./CounterComponent";
 
 class AppComponent extends React.Component {
     render() {
@@ -14,14 +15,15 @@ class AppComponent extends React.Component {
                 <MenuComponent/>
                 <div className="container">
                     <p>Welcome to a Universal React App!!!</p>
-                    <p>
+                    <div>
                         <Switch>
                             <Route exact path="/" component={HomeComponent}/>
                             <Redirect to="/another" from="/old-link" />
                             <Route exact path="/another" component={AnotherComponent}/>
+                            <Route exact path="/counter" component={CounterComponent}/>
                             <Route component={NotFoundComponent} />
                         </Switch>
-                    </p>
+                    </div>
                 </div>
             </div>
         )

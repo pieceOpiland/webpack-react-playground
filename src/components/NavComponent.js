@@ -14,6 +14,7 @@ class NavComponent extends React.Component {
                         <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
                         <li className="nav-item"><Link className="nav-link" to="/another">Another</Link></li>
                         <li className="nav-item"><Link className="nav-link" to="/old-link">Old Link</Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="/counter">Counter</Link></li>
                     </ul>
                 </div>
             </nav>
