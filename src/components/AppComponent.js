@@ -14,16 +14,16 @@ class AppComponent extends React.Component {
             <div>
                 <MenuComponent/>
                 <div className="container">
-                    <p>Welcome to a Universal React App!!!</p>
-                    <div>
+                    <header>Welcome to a Universal React App!!!</header>
+                    <main>
                         <Switch>
-                            <Route exact path="/" component={HomeComponent}/>
+                            <Route exact path="/" component={HomeComponent} />
                             <Redirect to="/another" from="/old-link" />
-                            <Route exact path="/another" component={AnotherComponent}/>
-                            <Route exact path="/counter" component={CounterComponent}/>
+                            <Route exact path="/another" component={AnotherComponent} />
+                            <Route exact path="/counter" component={CounterComponent} />
                             <Route component={NotFoundComponent} />
                         </Switch>
-                    </div>
+                    </main>
                 </div>
             </div>
         )

@@ -13,11 +13,17 @@ import reducer from './reducers/index';
 
 import AppComponent from './components/AppComponent';
 
-const store = createStore(reducer, window.__PRELOADED_STATE__, applyMiddleware(thunk));
+const middlewares = [thunk];
+
+if(process.env.NODE_ENV !== 'production') {
+    const { logger } = require('redux-logger');
+    middlewares.push(logger);
+}
+
+const store = createStore(reducer, window.__PRELOADED_STATE__, applyMiddleware(...middlewares));
 
 document.getElementById('preloadedState').remove();
 delete window.__PRELOADED_STATE__;
-
 
 ReactDOM.hydrate(
     <Provider store={store}>
