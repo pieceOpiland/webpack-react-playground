@@ -8,6 +8,7 @@ module.exports = merge(config, {
     devtool: 'inline-source-map',
     entry: ['webpack-hot-middleware/client'],
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NamedModulesPlugin()
     ]
 });

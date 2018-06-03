@@ -1,4 +1,4 @@
-import { LOAD_COUNTER } from "./types";
+import { LOAD_COUNTER } from './types';
 
 export default function(state = 0, action) {
     switch(action.type) {
