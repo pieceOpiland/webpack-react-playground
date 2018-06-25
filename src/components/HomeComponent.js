@@ -1,7 +1,6 @@
-import React from 'react';
-import { hot } from 'react-hot-loader';
+import React, { Component } from 'react';
 
-class HomeComponent extends React.Component {
+class HomeComponent extends Component {
     render() {
         return (
             <span>Home Component</span>
@@ -9,4 +8,4 @@ class HomeComponent extends React.Component {
     }
 }
 
-export default hot(module)(HomeComponent);
+export default HomeComponent;

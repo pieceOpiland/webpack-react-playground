@@ -4,6 +4,7 @@ const router = Router();
 
 let counter = 0;
 
+// Add any common reducer state here, i.e. user data.
 router.use(function(req, res, next) {
     res.locals.state = {};
     next();

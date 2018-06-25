@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { hot } from 'react-hot-loader';
 import { Switch, Route, Redirect } from 'react-router';
 
@@ -8,7 +8,7 @@ import AnotherComponent from './AnotherComponent';
 import NotFoundComponent from './NotFoundComponent';
 import CounterComponent from "./CounterComponent";
 
-class AppComponent extends React.Component {
+class AppComponent extends Component {
     render() {
         return (
             <div>
@@ -30,4 +30,4 @@ class AppComponent extends React.Component {
     }
 }
 
-export default hot(module)(AppComponent);
+export default AppComponent;

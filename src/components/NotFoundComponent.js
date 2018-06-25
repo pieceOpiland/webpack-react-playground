@@ -1,9 +1,8 @@
-import React from 'react';
-import { hot } from 'react-hot-loader';
+import React, { Component } from 'react';
 
 import Status from './Status';
 
-class NotFoundComponent extends React.Component {
+class NotFoundComponent extends Component {
     render() {
         return (
             <Status code={404}>
@@ -13,4 +12,4 @@ class NotFoundComponent extends React.Component {
     }
 }
 
-export default hot(module)(NotFoundComponent);
+export default NotFoundComponent;

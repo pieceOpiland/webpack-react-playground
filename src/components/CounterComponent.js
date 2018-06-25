@@ -1,10 +1,9 @@
-import React from 'react';
-import { hot } from 'react-hot-loader';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { loadCounter, incrementCounter } from "../reducers/counter/actions";
 
-class CounterComponent extends React.Component {
+class CounterComponent extends Component {
 
     componentDidMount() {
         if(!this.props.counter) {
@@ -39,4 +38,4 @@ const mapDispatchToProps = function(dispatch) {
     }
 };
 
-export default hot(module)(connect(mapStateToProps, mapDispatchToProps)(CounterComponent))
+export default connect(mapStateToProps, mapDispatchToProps)(CounterComponent);

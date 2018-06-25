@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { hot } from 'react-hot-loader';
 
-class AnotherComponent extends React.Component {
+class AnotherComponent extends Component {
     render() {
         return (
             <span>Another Component</span>
@@ -9,4 +9,4 @@ class AnotherComponent extends React.Component {
     }
 }
 
-export default hot(module)(AnotherComponent);
+export default AnotherComponent;

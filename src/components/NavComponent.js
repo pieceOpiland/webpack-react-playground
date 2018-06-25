@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { hot } from 'react-hot-loader';
 
-class NavComponent extends React.Component {
+class NavComponent extends Component {
     render() {
         return (
             <nav className="navbar navbar-expand-sm fixed-top navbar-dark bg-dark">
@@ -22,4 +21,4 @@ class NavComponent extends React.Component {
     }
 }
 
-export default hot(module)(NavComponent);
+export default NavComponent;

@@ -37,7 +37,6 @@ ReactDOM.hydrate(
 if (module.hot) {
     module.hot.accept('./reducers/index', function() {
         const newReducer = require('./reducers/index').default;
-        console.log('loading');
         store.replaceReducer(newReducer);
     });
 }
