@@ -1,6 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
     entry: ['./src/index.js'],
@@ -9,15 +7,6 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/dist'
     },
-    plugins: [
-        new MiniCssExtractPlugin(),
-        new webpack.ProvidePlugin({
-            '$': 'jquery',
-            'jQuery': 'jquery',
-            'window.jQuery': 'jquery',
-            'Popper': ['popper.js', 'default']
-        })
-    ],
     module: {
         rules: [
             {
@@ -26,23 +15,6 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                 }
-            },
-            {
-                test: /\.scss$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            plugins: function() {
-                                return [require('precss'), require('autoprefixer')];
-                            }
-                        }
-                    },
-                    'sass-loader'
-                ]
-
             }
         ]
     }

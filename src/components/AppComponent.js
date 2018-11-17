@@ -1,33 +1,40 @@
 import React, { Component } from 'react';
-import { hot } from 'react-hot-loader';
-import { Switch, Route, Redirect } from 'react-router';
 
-import MenuComponent from './NavComponent';
+import { Switch, Route } from 'react-router';
+
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { withStyles } from '@material-ui/core/styles';
+
+import NavComponent from './NavComponent';
 import HomeComponent from './HomeComponent';
-import AnotherComponent from './AnotherComponent';
+import CounterComponent from './CounterComponent';
 import NotFoundComponent from './NotFoundComponent';
-import CounterComponent from "./CounterComponent";
+
+import { hot } from 'react-hot-loader';
+
+const styles = {
+    main: {
+        margin: 32
+    }
+};
 
 class AppComponent extends Component {
     render() {
+        const { classes } = this.props;
         return (
-            <div>
-                <MenuComponent/>
-                <div className="container">
-                    <header>Welcome to a Universal React App!!!</header>
-                    <main>
-                        <Switch>
-                            <Route exact path="/" component={HomeComponent} />
-                            <Redirect to="/another" from="/old-link" />
-                            <Route exact path="/another" component={AnotherComponent} />
-                            <Route exact path="/counter" component={CounterComponent} />
-                            <Route component={NotFoundComponent} />
-                        </Switch>
-                    </main>
-                </div>
-            </div>
+            <React.Fragment>
+                <CssBaseline />
+                <NavComponent />
+                <main className={classes.main}>
+                    <Switch>
+                        <Route exact path="/" component={HomeComponent} />
+                        <Route exact path="/counter" component={CounterComponent} />
+                        <Route component={NotFoundComponent} />
+                    </Switch>
+                </main>
+            </React.Fragment>
         )
     }
 }
 
-export default AppComponent;
+export default hot(module)(withStyles(styles)(AppComponent));

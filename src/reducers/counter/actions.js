@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import { LOAD_COUNTER } from "./types";
 
 export function loadCounter() {

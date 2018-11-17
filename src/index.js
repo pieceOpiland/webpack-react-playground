@@ -1,6 +1,4 @@
-import '../styles/style.scss';
 import 'babel-polyfill';
-import 'bootstrap';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -11,6 +9,7 @@ import thunk from 'redux-thunk';
 
 import reducer from './reducers/index';
 
+import ThemeComponent from './components/ThemeComponent';
 import AppComponent from './components/AppComponent';
 
 const middlewares = [thunk];
@@ -28,7 +27,9 @@ delete window.__PRELOADED_STATE__;
 ReactDOM.hydrate(
     <Provider store={store}>
         <Router>
-            <AppComponent/>
+            <ThemeComponent>
+                <AppComponent/>
+            </ThemeComponent>
         </Router>
     </Provider>,
     document.getElementById('app')
