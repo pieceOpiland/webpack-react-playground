@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  app:
+    environment:
+      MONGODB_URI: mongo://root@example:mongo/my_app
+      REDIS_URI: redis://redis/0
+    volumes:
+      - .:/usr/src/app
+
+  mongo:
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example

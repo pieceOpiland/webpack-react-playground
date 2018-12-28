@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  app:
+    env_file:
+      - env/app.prod.env
+
+  mongo:
+    env_file:
+      - env/mongo.prod.env
+

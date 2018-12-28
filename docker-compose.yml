@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    image: 192.168.99.107:5000/react-webpack
+    ports:
+      - 3000:3000
+    entrypoint:
+      - /wait-for
+      - redis:6379
+      - mongo:27017
+      - --
+      - npm
+      - run
+      - start
+
+  redis:
+    image: redis:5-alpine
+
+  mongo:
+    image: mongo:4-xenial
+    restart: always

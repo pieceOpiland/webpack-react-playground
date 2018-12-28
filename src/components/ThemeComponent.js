@@ -10,6 +10,17 @@ import red from '@material-ui/core/colors/red';
 
 import { hot } from 'react-hot-loader';
 
+export const Theme = createMuiTheme({
+    palette: {
+        primary: green,
+        accent: red,
+        type: 'light',
+    },
+    typography: {
+        useNextVariants: true,
+    }
+});
+
 class ThemeComponent extends Component {
     componentDidMount() {
         const serverStyles = document.getElementById('serverStyles');
@@ -18,19 +29,9 @@ class ThemeComponent extends Component {
         }
     }
     render() {
-        const theme = createMuiTheme({
-            palette: {
-                primary: green,
-                accent: red,
-                type: 'light',
-            },
-            typography: {
-                useNextVariants: true,
-            }
-        });
         return (
             <JssProvider generateClassName={createGenerateClassName()} registry={this.props.registry}>
-                <MuiThemeProvider theme={theme} sheetsManager={this.props.sheetsManager}>
+                <MuiThemeProvider theme={Theme} sheetsManager={this.props.sheetsManager}>
                     {this.props.children}
                 </MuiThemeProvider>
             </JssProvider>

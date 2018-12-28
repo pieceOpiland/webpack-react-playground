@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -24,24 +24,32 @@ const styles = {
     },
 };
 
-function ButtonAppBar(props) {
-    const { classes } = props;
-    return (
-        <div className={classes.root}>
-            <AppBar position='static'>
-                <Toolbar>
-                    <IconButton
-                        className={classes.homeButton} color='inherit' aria-label='Home' component={Link} to='/'>
-                        <HomeIcon />
-                    </IconButton>
-                    <Typography variant='h6' color='inherit' className={classes.grow}>
-                        My App
-                    </Typography>
-                    <Button color='inherit' component={Link} to='/counter'>Counter</Button>
-                </Toolbar>
-            </AppBar>
-        </div>
-    );
+class ButtonAppBar extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {open: true};
+    }
+
+    render() {
+        const {classes} = this.props;
+        return (
+            <div className={classes.root}>
+                <AppBar position='static'>
+                    <Toolbar>
+                        <IconButton
+                            className={classes.homeButton} color='inherit' aria-label='Home' component={Link} to='/'>
+                            <HomeIcon/>
+                        </IconButton>
+                        <Typography variant='h6' color='inherit' className={classes.grow}>
+                            My App
+                        </Typography>
+                        <Button color='inherit' component={Link} to='/counter'>Counter</Button>
+                    </Toolbar>
+                </AppBar>
+            </div>
+        );
+    }
 }
 
 export default withStyles(styles)(ButtonAppBar);
