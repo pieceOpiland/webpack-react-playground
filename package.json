@@ -8,6 +8,12 @@
     "start": "node index.js",
     "test": "jest"
   },
+  "engines": {
+    "node": "8.15.0"
+  },
+  "jest": {
+    "testRegex": "/test/.*\\.js$"
+  },
   "dependencies": {
     "@material-ui/core": "^3.5.1",
     "@material-ui/icons": "^3.0.1",
@@ -46,8 +52,5 @@
     "webpack": "^4.9.1",
     "webpack-cli": "^2.1.4",
     "webpack-merge": "^4.1.2"
-  },
-  "jest": {
-    "testRegex": "/test/.*\\.js$"
   }
 }
