@@ -4,7 +4,7 @@ import redis from 'redis';
 
 const router = Router();
 
-const client = redis.createClient(process.env.REDIS_URI);
+const client = redis.createClient(process.env.REDIS_URL);
 
 client.set('counter', '0', 'NX');
 

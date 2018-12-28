@@ -4,7 +4,7 @@ services:
   app:
     environment:
       MONGODB_URI: mongo://root@example:mongo/my_app
-      REDIS_URI: redis://redis/0
+      REDIS_URL: redis://redis/0
     volumes:
       - .:/usr/src/app
 
