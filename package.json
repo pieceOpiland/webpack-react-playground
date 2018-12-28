@@ -4,7 +4,6 @@
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "heroku-postbuild": "webpack --config webpack.prod.js",
-    "postinstall": "webpack --config webpack.prod.js",
     "start": "node index.js",
     "test": "jest"
   },
