@@ -13,10 +13,9 @@ So far, things I've gotten working are:
 * Component Hot Loading
 * Server Side Rendering
 * Babel Integration
-* CSS integration
 * Better Production support
 * Deploy on Heroku
-* SCSS integration
+* React Material-UI JSS
 * Add a data store via redux
 
 ## System Configuration

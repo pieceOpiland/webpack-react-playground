@@ -1,10 +1,8 @@
 import { Router } from 'express';
 
-import redis from 'redis';
+import { client } from '../utils/redis-utils';
 
 const router = Router();
-
-const client = redis.createClient(process.env.REDIS_URL);
 
 client.set('counter', '0', 'NX');
 
