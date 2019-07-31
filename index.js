@@ -6,7 +6,6 @@ require('babel-register');
 
 const express           = require('express');
 const compression       = require('compression');
-const _                 = require('lodash');
 const createStore       = require('redux').createStore;
 const Provider          = require('react-redux').Provider;
 const React             = require('react');
@@ -41,73 +40,68 @@ if(process.env.NODE_ENV === 'production') {
 
     // TODO: Figure out how to do code-splitting on this.
     app.use('/dist/bundle.js', function(req, res) {
+        res.type('text/javascript');
         res.sendFile(path.resolve('./dist/bundle.js'));
     });
 }
 
 app.use(router);
 
-fs.readFile('./index.html', 'utf-8', function(err, data) {
-    const template = _.template(data);
-    const cleaner = new CleanCSS();
-    app.use(function(req, res) {
+let renderer;
+if (process.env.NODE_ENV === 'production') {
+    renderer = require('./index.prod');
+} else {
+    renderer = require('./index.dev');
+}
 
-        if(process.env.NODE_ENV !== 'production') {
-            const cache = require.cache;
-            const srcPath = path.resolve(__dirname, 'src');
-            for(const key in cache) {
-                if(key.startsWith(srcPath)) {
-                    delete cache[key];
-                }
-            }
-        }
+const cleaner = new CleanCSS();
 
-        const sheetsRegistry = new SheetsRegistry();
-        const sheetsManager = new Map();
+renderer(app, function(req, res, template) {
+    const sheetsRegistry = new SheetsRegistry();
+    const sheetsManager = new Map();
 
-        const AppComponent = require('./src/components/AppComponent').default;
-        const ThemeComponent = require('./src/components/ThemeComponent').default;
-        const context = {};
+    const AppComponent = require('./src/components/AppComponent').default;
+    const ThemeComponent = require('./src/components/ThemeComponent').default;
+    const context = {};
 
-        const content = ReactDOMServer.renderToString(
-            React.createElement(Provider, { store: createStore(reducer, res.locals.state) },
-                React.createElement(StaticRouter, { context, location: req.url },
-                    React.createElement(ThemeComponent, {
-                            registry: sheetsRegistry,
-                            sheetsManager: sheetsManager
-                        },
-                        React.createElement(AppComponent, null, null)
-                    )
+    const content = ReactDOMServer.renderToString(
+        React.createElement(Provider, { store: createStore(reducer, res.locals.state) },
+            React.createElement(StaticRouter, { context, location: req.url },
+                React.createElement(ThemeComponent, {
+                        registry: sheetsRegistry,
+                        sheetsManager: sheetsManager
+                    },
+                    React.createElement(AppComponent, null, null)
                 )
             )
-        );
+        )
+    );
 
-        cleaner.minify(sheetsRegistry.toString(), function(err, output) {
-            if (!err) {
-                const html = template({
-                    content: content,
-                    styles: output.styles,
-                    state: res.locals.state
-                });
+    cleaner.minify(sheetsRegistry.toString(), function(err, output) {
+        if (!err) {
+            const html = template({
+                content: content,
+                styles: output.styles,
+                state: res.locals.state,
+            });
 
-                if (context.url) {
-                    res.redirect(context.url);
-                } else {
-                    if (context.status) {
-                        res.status(context.status);
-                    }
-                    res.end(html);
-                }
+            if (context.url) {
+                res.redirect(context.url);
             } else {
-                console.warn(err);
+                if (context.status) {
+                    res.status(context.status);
+                }
+                res.end(html);
             }
-        })
+        } else {
+            console.warn(err);
+        }
+    })
 
 
-    });
+});
 
-    app.listen(process.env.PORT || 3000, function() {
-        console.log('Listening on port ' + (process.env.PORT || 3000) );
-    });
+app.listen(process.env.PORT || 3000, function() {
+    console.log('Listening on port ' + (process.env.PORT || 3000) );
 });
 
