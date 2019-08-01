@@ -63,6 +63,8 @@ renderer(app, function(req, res, template) {
 
     const AppComponent = require('./src/components/AppComponent').default;
     const ThemeComponent = require('./src/components/ThemeComponent').default;
+    const Meta = require('./src/components/Meta').default;
+    const Title = require('./src/components/Title').default;
     const context = {};
 
     const content = ReactDOMServer.renderToString(
@@ -78,12 +80,17 @@ renderer(app, function(req, res, template) {
         )
     );
 
+    const title = Title.rewind();
+    const metaMap = Meta.rewind();
+
     cleaner.minify(sheetsRegistry.toString(), function(err, output) {
         if (!err) {
             const html = template({
                 content: content,
                 styles: output.styles,
                 state: res.locals.state,
+                metaData: Meta.toHtml(metaMap),
+                title: title
             });
 
             if (context.url) {

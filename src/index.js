@@ -22,6 +22,7 @@ if(process.env.NODE_ENV !== 'production') {
 
 const store = createStore(reducer, window.__PRELOADED_STATE__, applyMiddleware(...middlewares));
 
+document.getElementById('serverStyles').remove();
 document.getElementById('preloadedState').remove();
 delete window.__PRELOADED_STATE__;
 

@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
+import Title from './Title';
+
 import { loadCounter, incrementCounter } from "../reducers/counter/actions";
 
 class CounterComponent extends Component {
@@ -17,6 +19,7 @@ class CounterComponent extends Component {
     render() {
         return (
             <div>
+                <Title>Universal React Page - Counter</Title>
                 <Typography>Counter: {this.props.counter}</Typography>
                 <Button onClick={this.props.incrementCounter} variant="contained">Increment</Button>
             </div>

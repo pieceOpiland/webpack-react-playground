@@ -5,6 +5,9 @@ import { Switch, Route } from 'react-router';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { withStyles } from '@material-ui/core/styles';
 
+import Meta from './Meta';
+import Title from './Title';
+
 import NavComponent from './NavComponent';
 import HomeComponent from './HomeComponent';
 import CounterComponent from './CounterComponent';
@@ -23,6 +26,8 @@ class AppComponent extends Component {
         const { classes } = this.props;
         return (
             <React.Fragment>
+                <Title>Universal React App</Title>
+                <Meta name="description" content="This is just a sample Universal React Application." />
                 <CssBaseline />
                 <NavComponent />
                 <main className={classes.main}>
