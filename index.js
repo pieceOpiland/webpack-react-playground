@@ -16,7 +16,6 @@ const StaticRouter      = require('react-router').StaticRouter;
 const router            = require('./src/routes').default;
 const reducer           = require('./src/reducers').default;
 
-
 const app = express();
 
 if(process.env.NODE_ENV !== 'production') {
@@ -46,6 +45,8 @@ if(process.env.NODE_ENV === 'production') {
 }
 
 app.use(router);
+
+app.use(express.static(path.resolve('./public')));
 
 let renderer;
 if (process.env.NODE_ENV === 'production') {
