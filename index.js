@@ -11,7 +11,6 @@ const Provider          = require('react-redux').Provider;
 const React             = require('react');
 const ReactDOMServer    = require('react-dom/server');
 const CleanCSS          = require('clean-css');
-const ServerStyleSheets = require('@material-ui/styles').ServerStyleSheets;
 const StaticRouter      = require('react-router').StaticRouter;
 const router            = require('./src/routes').default;
 const reducer           = require('./src/reducers').default;
@@ -62,15 +61,15 @@ renderer(app, function(req, res, template) {
     const ThemeComponent = require('./src/components/ThemeComponent').default;
     const Meta = require('./src/components/Meta').default;
     const Title = require('./src/components/Title').default;
+    const themeComponent = new ThemeComponent();
     const context = {};
-    const sheets = new ServerStyleSheets();
 
     const content = ReactDOMServer.renderToString(
         React.createElement(Provider, { store: createStore(reducer, res.locals.state) },
             React.createElement(StaticRouter, { context, location: req.url },
-                sheets.collect(React.createElement(ThemeComponent, null,
+                React.createElement(themeComponent.render(), null,
                     React.createElement(AppComponent, null, null)
-                ))
+                )
             )
         )
     );
@@ -78,7 +77,7 @@ renderer(app, function(req, res, template) {
     const title = Title.rewind();
     const metaMap = Meta.rewind();
 
-    cleaner.minify(sheets.toString(), function(err, output) {
+    cleaner.minify(themeComponent.toString(), function(err, output) {
         if (!err) {
             const html = template({
                 content: content,

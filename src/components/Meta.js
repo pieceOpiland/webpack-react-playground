@@ -51,11 +51,14 @@ Meta.propTypes = {
 };
 
 Meta.toHtml = function(state) {
-    const keys = Object.keys(state);
-    return keys.map(function(key) {
-        const entries = Object.entries(state[key]);
-        return `<meta name="${key}" ${entries.map((entry) => `${entry[0]}="${entry[1]}"`).join(' ')} />`
-    }).join('');
+    if(state) {
+        const keys = Object.keys(state);
+        return keys.map(function(key) {
+            const entries = Object.entries(state[key]);
+            return `<meta name="${key}" ${entries.map((entry) => `${entry[0]}="${entry[1]}"`).join(' ')} />`
+        }).join('');
+    }
+    return "";
 };
 
 export default Meta;

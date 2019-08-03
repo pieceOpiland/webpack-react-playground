@@ -1,40 +1,34 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {
-    createMuiTheme
-} from '@material-ui/core/styles';
-import {
-    ThemeProvider
+    ThemeProvider,
+    StylesProvider,
+    createGenerateClassName
 } from '@material-ui/styles';
-import green from '@material-ui/core/colors/blue';
-import red from '@material-ui/core/colors/red';
+import { SheetsRegistry } from "jss";
 
-import { hot } from 'react-hot-loader';
+import Theme from '../utils/theme';
 
-export const Theme = createMuiTheme({
-    palette: {
-        primary: green,
-        accent: red,
-        type: 'light',
-    },
-    typography: {
-        useNextVariants: true,
-    }
-});
-
-class ThemeComponent extends Component {
-    componentDidMount() {
-        const serverStyles = document.getElementById('serverStyles');
-        if(serverStyles && serverStyles.parentNode) {
-            serverStyles.parentNode.removeChild(serverStyles);
-        }
+class ThemeComponent {
+    constructor() {
+        this.registry = new SheetsRegistry();
+        this.sheetsManager = new Map();
     }
     render() {
-        return (
-            <ThemeProvider theme={Theme} sheetsManager={this.props.sheetsManager}>
-                {this.props.children}
-            </ThemeProvider>
-        )
+        return ({children}) => (
+            <StylesProvider
+                generateClassName={createGenerateClassName({disableGlobal: process.env.NODE_ENV === 'production'})}
+                sheetsManager={this.sheetsManager}
+                sheetsRegistry={this.registry}>
+                <ThemeProvider theme={Theme}>
+                    {children}
+                </ThemeProvider>
+            </StylesProvider>
+        );
+    }
+
+    toString() {
+        return this.registry.toString();
     }
 }
 
-export default hot(module)(ThemeComponent);
+export default ThemeComponent;

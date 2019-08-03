@@ -3,15 +3,17 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import StylesProvider from '@material-ui/styles/StylesProvider';
+import ThemeProvider from '@material-ui/styles/ThemeProvider';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
 import reducer from './reducers/index';
 
-import {Theme} from './components/ThemeComponent';
+import Theme from './utils/theme';
 import AppComponent from './components/AppComponent';
+import {createGenerateClassName} from "@material-ui/styles";
 
 const middlewares = [thunk];
 
@@ -29,9 +31,12 @@ delete window.__PRELOADED_STATE__;
 ReactDOM.hydrate(
     <Provider store={store}>
         <Router>
-            <MuiThemeProvider theme={Theme}>
-                <AppComponent/>
-            </MuiThemeProvider>
+            <StylesProvider
+                generateClassName={createGenerateClassName({disableGlobal: process.env.NODE_ENV === 'production'})}>
+                <ThemeProvider theme={Theme}>
+                    <AppComponent/>
+                </ThemeProvider>
+            </StylesProvider>
         </Router>
     </Provider>,
     document.getElementById('app')
