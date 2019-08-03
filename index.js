@@ -11,7 +11,7 @@ const Provider          = require('react-redux').Provider;
 const React             = require('react');
 const ReactDOMServer    = require('react-dom/server');
 const CleanCSS          = require('clean-css');
-const SheetsRegistry    = require('jss').SheetsRegistry;
+const ServerStyleSheets = require('@material-ui/styles').ServerStyleSheets;
 const StaticRouter      = require('react-router').StaticRouter;
 const router            = require('./src/routes').default;
 const reducer           = require('./src/reducers').default;
@@ -58,24 +58,19 @@ if (process.env.NODE_ENV === 'production') {
 const cleaner = new CleanCSS();
 
 renderer(app, function(req, res, template) {
-    const sheetsRegistry = new SheetsRegistry();
-    const sheetsManager = new Map();
-
     const AppComponent = require('./src/components/AppComponent').default;
     const ThemeComponent = require('./src/components/ThemeComponent').default;
     const Meta = require('./src/components/Meta').default;
     const Title = require('./src/components/Title').default;
     const context = {};
+    const sheets = new ServerStyleSheets();
 
     const content = ReactDOMServer.renderToString(
         React.createElement(Provider, { store: createStore(reducer, res.locals.state) },
             React.createElement(StaticRouter, { context, location: req.url },
-                React.createElement(ThemeComponent, {
-                        registry: sheetsRegistry,
-                        sheetsManager: sheetsManager
-                    },
+                sheets.collect(React.createElement(ThemeComponent, null,
                     React.createElement(AppComponent, null, null)
-                )
+                ))
             )
         )
     );
@@ -83,7 +78,7 @@ renderer(app, function(req, res, template) {
     const title = Title.rewind();
     const metaMap = Meta.rewind();
 
-    cleaner.minify(sheetsRegistry.toString(), function(err, output) {
+    cleaner.minify(sheets.toString(), function(err, output) {
         if (!err) {
             const html = template({
                 content: content,

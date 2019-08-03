@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import JssProvider from 'react-jss/lib/JssProvider';
 import {
-    MuiThemeProvider,
-    createMuiTheme,
-    createGenerateClassName
+    createMuiTheme
 } from '@material-ui/core/styles';
+import {
+    ThemeProvider
+} from '@material-ui/styles';
 import green from '@material-ui/core/colors/blue';
 import red from '@material-ui/core/colors/red';
 
@@ -30,11 +30,9 @@ class ThemeComponent extends Component {
     }
     render() {
         return (
-            <JssProvider generateClassName={createGenerateClassName()} registry={this.props.registry}>
-                <MuiThemeProvider theme={Theme} sheetsManager={this.props.sheetsManager}>
-                    {this.props.children}
-                </MuiThemeProvider>
-            </JssProvider>
+            <ThemeProvider theme={Theme} sheetsManager={this.props.sheetsManager}>
+                {this.props.children}
+            </ThemeProvider>
         )
     }
 }
