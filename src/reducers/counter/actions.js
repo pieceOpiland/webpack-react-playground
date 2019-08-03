@@ -9,7 +9,7 @@ export function loadCounter() {
             dispatch({
                 type: LOAD_COUNTER,
                 data
-            })
+            });
         });
     }
 }

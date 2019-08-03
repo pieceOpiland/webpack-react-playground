@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import { Switch, Route } from 'react-router';
 
@@ -21,25 +21,22 @@ const styles = {
     }
 };
 
-class AppComponent extends Component {
-    render() {
-        const { classes } = this.props;
-        return (
-            <React.Fragment>
-                <Title>Universal React App</Title>
-                <Meta name="description" content="This is just a sample Universal React Application." />
-                <CssBaseline />
-                <NavComponent />
-                <main className={classes.main}>
-                    <Switch>
-                        <Route exact path="/" component={HomeComponent} />
-                        <Route exact path="/counter" component={CounterComponent} />
-                        <Route component={NotFoundComponent} />
-                    </Switch>
-                </main>
-            </React.Fragment>
-        )
-    }
+function AppComponent({ classes }) {
+    return (
+        <React.Fragment>
+            <Title>Universal React App</Title>
+            <Meta name="description" content="This is just a sample Universal React Application." />
+            <CssBaseline />
+            <NavComponent />
+            <main className={classes.main}>
+                <Switch>
+                    <Route exact path="/" component={HomeComponent} />
+                    <Route exact path="/counter" component={CounterComponent} />
+                    <Route component={NotFoundComponent} />
+                </Switch>
+            </main>
+        </React.Fragment>
+    )
 }
 
 export default hot(module)(withStyles(styles)(AppComponent));
