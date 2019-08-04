@@ -1,14 +1,14 @@
-import $ from 'jquery';
+import axios from 'axios';
 import { LOAD_COUNTER } from "./types";
 
 export function loadCounter() {
     return function(dispatch) {
-        $.ajax("/counter", {
-            method: "GET"
-        }).then(function(data){
+        axios("/counter", {
+            method: "get"
+        }).then(function(response){
             dispatch({
                 type: LOAD_COUNTER,
-                data
+                data: response.data
             });
         });
     }
@@ -16,12 +16,12 @@ export function loadCounter() {
 
 export function incrementCounter() {
     return function(dispatch) {
-        $.ajax("/counter", {
-            method: "POST"
-        }).then(function(data){
+        axios("/counter", {
+            method: "post"
+        }).then(function(response){
             dispatch({
                 type: LOAD_COUNTER,
-                data
+                data: response.data
             });
         });
     }

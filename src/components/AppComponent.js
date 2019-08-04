@@ -3,7 +3,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import Meta from './Meta';
 import Title from './Title';
