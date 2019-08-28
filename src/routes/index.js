@@ -1,10 +1,9 @@
 import { Router } from 'express';
 
-import { client } from '../utils/redis-utils';
+import health from './health';
+import counter from './counter';
 
 const router = Router();
-
-client.set('counter', '0', 'NX');
 
 // Add any common reducer state here, i.e. user data.
 router.use(function(req, res, next) {
@@ -12,27 +11,7 @@ router.use(function(req, res, next) {
     next();
 });
 
-router.route('/counter')
-    .get(function(req, res, next) {
-        client.get('counter', function(err, counter) {
-            const payload = { counter: parseInt(counter) };
-            res.format({
-                // JSON first
-                json() {
-                    res.json(payload);
-                },
-                html() {
-                    res.locals.state = payload;
-                    next()
-                }
-            });
-        });
-    })
-    .post(function(req, res) {
-        client.get('counter', function(err, counter) {
-            client.set('counter', '' + (parseInt(counter) + 1));
-            res.json({ counter: parseInt(counter) + 1 })
-        });
-    });
+router.use('/health', health);
+router.use('/counter', counter);
 
 export default router;

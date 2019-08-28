@@ -11,6 +11,7 @@ import Title from './Title';
 import NavComponent from './NavComponent';
 import HomeComponent from './HomeComponent';
 import CounterComponent from './CounterComponent';
+import HealthComponent from './HealthComponent';
 import NotFoundComponent from './NotFoundComponent';
 
 import { hot } from 'react-hot-loader';
@@ -32,6 +33,7 @@ function AppComponent({ classes }) {
                 <Switch>
                     <Route exact path="/" component={HomeComponent} />
                     <Route exact path="/counter" component={CounterComponent} />
+                    <Route exact path="/health" component={HealthComponent} />
                     <Route component={NotFoundComponent} />
                 </Switch>
             </main>

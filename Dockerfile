@@ -2,9 +2,9 @@ FROM node:8-alpine
 
 WORKDIR /usr/src/app
 
-ADD https://raw.githubusercontent.com/eficode/wait-for/master/wait-for /wait-for
+#ADD https://raw.githubusercontent.com/eficode/wait-for/master/wait-for /wait-for
 
-RUN chmod +x /wait-for
+#RUN chmod +x /wait-for
 
 COPY package*.json ./
 

@@ -13,7 +13,7 @@ import reducer from './reducers/index';
 
 import Theme from './utils/theme';
 import AppComponent from './components/AppComponent';
-import {createGenerateClassName} from "@material-ui/styles";
+import createGenerateClassName from "@material-ui/styles/createGenerateClassName";
 
 const middlewares = [thunk];
 

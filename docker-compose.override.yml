@@ -5,6 +5,8 @@ services:
     environment:
       MONGODB_URI: mongo://root@example:mongo/my_app
       REDIS_URL: redis://redis/0
+    env_file:
+      - env/app.dev.env
     volumes:
       - .:/usr/src/app
 

@@ -99,8 +99,6 @@ renderer(app, function(req, res, template) {
             console.warn(err);
         }
     })
-
-
 });
 
 app.listen(process.env.PORT || 3000, function() {

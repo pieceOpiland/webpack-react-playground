@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import Typography from '@material-ui/core/Typography';
@@ -8,24 +8,21 @@ import Title from './Title';
 
 import { loadCounter, incrementCounter } from "../reducers/counter/actions";
 
-class CounterComponent extends Component {
-
-    componentDidMount() {
-        if(!this.props.counter) {
-            this.props.loadCounter();
+const CounterComponent = function({counter, loadCounter, incrementCounter}) {
+    useEffect(function() {
+        if(!counter) {
+            loadCounter();
         }
-    }
+    });
 
-    render() {
-        return (
-            <div>
-                <Title>Universal React Page - Counter</Title>
-                <Typography>Counter: {this.props.counter}</Typography>
-                <Button onClick={this.props.incrementCounter} variant="contained">Increment</Button>
-            </div>
-        );
-    }
-}
+    return (
+        <div>
+            <Title>Universal React Page - Counter</Title>
+            <Typography>Counter: {counter}</Typography>
+            <Button onClick={incrementCounter} variant="contained">Increment</Button>
+        </div>
+    );
+};
 
 const mapStateToProps = function(state) {
     return {
@@ -33,15 +30,9 @@ const mapStateToProps = function(state) {
     }
 };
 
-const mapDispatchToProps = function(dispatch) {
-    return {
-        loadCounter: function () {
-            dispatch(loadCounter());
-        },
-        incrementCounter: function () {
-            dispatch(incrementCounter());
-        }
-    }
+const mapDispatchToProps = {
+    loadCounter,
+    incrementCounter
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CounterComponent);
