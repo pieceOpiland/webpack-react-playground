@@ -10,7 +10,6 @@ router.route('/')
         client.get('counter', function(err, counter) {
             const payload = { counter: parseInt(counter) };
             res.format({
-                // JSON first
                 json() {
                     res.json(payload);
                 },

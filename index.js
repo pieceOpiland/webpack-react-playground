@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-require('babel-polyfill');
-require('babel-register');
+require('@babel/polyfill');
+require('@babel/register');
 
 const express           = require('express');
 const compression       = require('compression');
