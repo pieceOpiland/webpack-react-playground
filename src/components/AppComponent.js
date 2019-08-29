@@ -14,11 +14,13 @@ import CounterComponent from './CounterComponent';
 import HealthComponent from './HealthComponent';
 import NotFoundComponent from './NotFoundComponent';
 
+import theme from '../utils/theme';
+
 import { hot } from 'react-hot-loader';
 
 const styles = {
     main: {
-        margin: 32
+        margin: theme.spacing(4)
     }
 };
 
